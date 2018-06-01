@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Dead forest burning</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--meta data for sharing links on Facebook-->
+    <meta property="og:title" content="Dead forests burning"/>
+    <!--<meta property="og:url" content=""/>-->
+    <meta property="og:description" content="Practicing generating a story map."/>
+    <meta property="og:image" content="img/social.png"/>
+
+    <!--add required stylesheets-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!--leaflet css-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css">
+
+    <!--add favicon for the web page-->
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+
+    <!--Fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="css/storymap.2.4.css">
+
+    <style>
+        html, body, #map { width: 100%; height: 100%; margin: 0; background: #fff; }
+
+
+        /*.info-panel {*/
+            /*line-height: 16px;*/
+            /*width: 180px;*/
+            /*position: absolute;*/
+            /*z-index: 1000;*/
+            /*left: 10px;*/
+            /*bottom: 10px;*/
+            /*color: #070707;*/
+            /*padding: 6px 8px;*/
+            /*background: rgba(243, 243, 243, 0.73);*/
+            /*box-shadow: 0 0 15px rgba(0,0,0,0.2);*/
+            /*border-radius: 5px;*/
+        /*}*/
+
+
+        .info-panel i {
+            width: 16px;
+            height: 14px;
+            line-height: 18px;
+            float: left;
+            margin-top: 2px;
+            margin-right: 8px;
+            opacity: 0.7;
+        }
+
+        .info-panel p {
+            font-size: 12px;
+            line-height: 16px;
+            margin: 0;
+        }
+    </style>
+
+
+
+   <!--Scripts-->
+    <!--add required libraries-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.js"></script>
+    <!--jquery-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <!--boostrap-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <!--leaflet.ajax for asynchronously adding geojson data-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.min.js"></script>
+
+    <!--story map plugin-->
+    <script src="js/storymap.2.4.js"></script>
+
+
+
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+    <!--<div class="container-fluid">-->
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <a class="navbar-brand" href="#">
+        <!--convert the style value to a class and then add the class to the css file.-->
+        <img src="img/favicon.ico"  width="100%" class="d-inline-block align-top">
+    </a>
+    <div class="navbar-header">
+        <a class="navbar-brand" href="#">Dead Forests Burning</a>
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse">
+        <!--Create class ml-auto for the navbar items you want on the right.-->
+        <ul class="navbar-nav ml-auto" >
+            <!--a simple top bar link-->
+            <li class="nav-item">
+                <a class="nav-link" href="#">Overview</a>
+            </li>
+            <!--a top bar link which opens the url in a new page-->
+            <li class="nav-item">
+                <a class="nav-link" href="#">Beetle Outbreak</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Wildfire</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Recovery</a>
+            </li>
+            <li>
+                <a class="fab fa-facebook-square btn" href="https://facebook.com/sharer.php?u=https://taluccia.github.io/geog4572.lab5.taluccia/" target="_blank"></a>
+            </li>
+            <li>
+                <a class="fa fa-github-square social2"  href="https://github.com/taluccia/geog4572.lab5.taluccia" style="top:40px"
+                   target="_blank"></a>
+            </li>
+            <li>
+                <i class="fas fa-info-circle btn" style="top:60px" data-toggle="modal" data-target="#info-modal"></i>
+            </li>
+        </ul></div></nav>
+
+
+
+
+
+
+<div id="storymap" class="container-fluid">
+    <div class="row">
+        <div class="col-sm-6 col-md-4 storymap-story">
+            <!--<section data-scene="overview" data-background="assets/fieldphotos_video.mp4">-->
+                <div class="fullscreen text-center">
+
+                    <h1 class="display-4 d-flex justify-content-center">Small pests and big wildfire!</h1>
+
+
+                    <medium class="d-flex justify-content-center" style="color: rgba(255,255,255,0.95)">This story map
+                        illustrates the life cycles of forests in central interior British Columbia
+                        - lodgepole pine, insect attack, tree death, altered structure, wildfire, & regeneration.
+                    </medium>
+                </div>
+            </section>
+
+            <section data-scene="lodgepole">
+                <h2>Overview: Lodgpole Pine Forests</h2>
+                <h5>Once their were many mature lodgepole pine trees in the forests. </h5>
+                <p>Forest across central interior British Columbia are dominated by Lodgepole pine. Forests
+                    are an integral part of the landscape and provide wildlife habitat, ecosystem services such as
+                    carbon storage, economic value in the form of timber harvest and recreation, and intrinsic value.
+                </p>
+                <p> Forest structure and life cycles are shaped by broad scale disturbances, most commonly mountain pine
+                    beetle outbreaks and wildfire. While lodgepole pine forests are accustom to large scale disturbance
+                    events from mountain pine beetle outbreaks and wildfire, recent events have been unprecedented in
+                    magnitude and extent, which have created conditions in which these two disturbances overlap in time
+                    and space.  </p>
+
+                <p>Historically, beetle outbreaks have occur multiple times throughout the last century, while
+                    wildfire return is typically 100-150 year intervals for the region. Beetle outbreak and wildfire
+                    are integral to shaping forest structure, composition, and function. Lodgepole pine
+                    is a fire resilient species with a seedbank that it retains and releases after fire.  </p>
+            </section>
+
+            <section data-scene="outbreak">
+                <h2>Beetle Outbreak</h2>
+                <h5>The populations of beetles that lived in the forest grew because they are able to survive the warmer
+                    winters and an abundance lodgepole pines trees for them to host on. They attacked more lodgepole pine
+                    trees then ever before, which killed much of the forest. </h5>
+                <p>Mountain pine beetles are a natural part of forest ecosystems in western North America. Lodgepole
+                    pine trees are the primary host for mountain pine beetles. Warmer winters and and abundance of
+                    mature lodgepole pine trees have created ideal conditions for the eruption in beetle populations
+                    that have resulted in millions of hectares of tree mortality. Much of the tree mortality has been
+                    concentrated in central interior British Columbia.  </p>
+                <p>Female beetles find a suitable host tree and release a pheromone calling in other female beetles.
+                    They attack and overwhelm the tree. Under endemic conditions the tree is able to defend itself
+                    against the beetles, but during epidemics the tree's defense mechanisms become overwhelmed. When the
+                    tree becomes overwhelmed by beetles it is unable to acquire the water and nutrients it needs to
+                    survive leading to its death. </p>
+                <p>Dead trees become snags and transition through post-mortem decay phases. During the green
+                    attack phase, trees retain their green needles, but their moisture content declines over the first
+                    year. The red phase follows and is characterized by red needles in the canopy, which last 1-3 years.
+                    Finally the tree transitions to the gray phase once the red needles are dropped.</p>
+            </section>
+
+
+
+            <section data-scene="wildfire">
+                <h2>Wildfire</h2>
+                <h5>Then wildfire came along and burned parts of the landscape of dead lodgepole pine. This released the seeds being held.</h5>
+                <p> Wildfire occurs on the landscape when the conditions are beneficial for ignition and spread.
+                    These conditions often occur mid to late summer during drier, windier periods. </p>
+                <p>Wildfire is a key disturbance mechanism in these forests that leads to rejuvenation, succession, and
+                    increased biodiversity. It creates
+                    an influx of nutrients and facilitates seed release for grasses, herbaceous plants, shrubs, and
+                    lodgepole pine. </p>
+                <p>This burn severity map shows a post fire mosaic for a fire that burned 2013. Large areas of high
+                    severity fire in red cover large portions of the mosaic.</p>
+                <br>
+                <hr>
+                <div id="map" class="map"></div>
+                <!--info panel-->
+                <div class="info-panel">
+                    <h4> Burn Severity </h4>
+
+                    <!-- legend patch items -->
+                    <i style="background: #1A9641;"></i><p>Unburned</p><br/>
+                    <i style="background: #FFFF33;"></i><p>Light Surface Fire</p><br/>
+                    <i style="background: #FFA500;"></i><p>Severe Surface Fire</p><br/>
+                    <i style="background: #D7191C;"></i><p>Severe Crown Fire</p><br/>
+
+                    <p> Burn severity categories are based on the Landscape Assessment (Key and Benson 2006).  </p>
+
+
+                </div>
+            </section>
+
+
+
+            <section data-scene="recovery">
+                <h2>Forest Regeneration</h2>
+                <h5>In many areas, lodgepole pine came back, but in some cases the combination of the dead trees from the
+                    beetle attack and fire killed the seeds and lodgepole did not return. </h5>
+                <p>Regeneration is critical to forest recovery. The extent and magnitude of both beetle outbreak and
+                    wildfire creates variability in seed availability and regeneration response for lodgepole pine.
+                    The variability creates a diverse mosaic across the landscape that includes everything from high
+                    density dog-hair stands of lodgepole pine to areas of little to no tree regeneration. Much of the
+                    high severity burned area is dominated by herbaceous flowering plants and shrubs. Am increase in
+                    plant species diversity draws in species that may not be associated with old growth lodgepole pine
+                    forests. </p>
+                <p>Postfire early successional habitat often attracts species like the black backed woodpecker that feeds
+                    on post fire insect activity. Hummingbirds enjoy the abundance of fireweed and other flowing plants.
+                    For some species, like Geranium bicknellii, postfire facilitates their germination after a century
+                    of dormancy. </p>
+                <p> Wildfire is a key mechanism for lodgepole pine regeneration. Lodgepole pine produce
+                    serotinous cones that retain seeds past maturity awaiting an environmental cue, in this case heat
+                    from fire, which melts the resinous bond and releases the seeds for germination. Fire also clears
+                    out the overstory for this sun loving species allowing them to be successful.</p>
+            </section>
+
+
+
+            <section data-scene="end" data-background="assets/fieldphotos_video.mp4">
+                <div class="fullscreen text-center">
+                    <h1 class="display-4 d-flex justify-content-center">Thanks for watching!!!</h1>
+                    <medium class="d-flex justify-content-center" style="color: rgba(255,255,255,0.95)">Big
+                        thanks to all those that helped with this project.
+                    </medium>
+                    <small class="d-flex justify-content-center" style="color: rgba(255,255,255,0.95)">This is a small
+                        portion of a dissertation that has been supported by many folks.
+                    </small>
+                </div>
+            </section>
+
+        </div>
+        <!--map div-->
+        <div class="col-sm-6 col-md-8 storymap-map"></div>
+    </div>
+
+    <!--<dl>-->
+        <!--<dt>-->
+            <!--&lt;!&ndash;facebook icon&ndash;&gt;-->
+            <!--<a class="fab fa-facebook-square btn"-->
+               <!--href="https://facebook.com/sharer.php?u=http://geoviz.ceoas.oregonstate.edu/storymap/examples/2.3/video.html"-->
+               <!--target="_blank"></a>-->
+        <!--</dt>-->
+        <!--<dt>-->
+            <!--&lt;!&ndash;github icon&ndash;&gt;-->
+            <!--<a class="fab fa-github btn" href="https://github.com/taluccia/geog4572.lab5.taluccia" style="top:40px"-->
+               <!--target="_blank"></a>-->
+        <!--</dt>-->
+        <!--<dt>-->
+            <!--&lt;!&ndash;info icon&ndash;&gt;-->
+            <!--<i class="fas fa-info-circle btn" style="top:60px" data-toggle="modal" data-target="#info-modal"></i>-->
+        <!--</dt>-->
+    <!--</dl>-->
+
+    <!--the info page-->
+    <div class="modal fade" id="info-modal" role="dialog">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">About</h4>
+                </div>
+                <div class="modal-body">
+                    <p>This is a web map of lodgepole pine forest in transition. In central interior British Columbia,
+                        forests have been killed by mountain pine beetle outbreak and then burned during wildfire, which has raised
+                        concerns and questions about fire severity and regeneration. This is demo for class lab:
+                        Geovisualization provided by Oregon State University. The story map library is derived from the
+                        storymap plugin for leaflet at <a>http://atlefren.github.io/storymap/</a>, and its functionality
+                        relies on both leaflet and Boostrap.</p>
+                    <p><b>storymap.js</b> | Released Date: 02/20/2017 | Version: 2.1 | MIT License </p>
+                    <p><b>Author: Anna Talucci</b> | College of Forestry | Oregon State University
+                    </p>
+                    <p>The context about forest and disturbance history is acquired from previous research (future link to citations).</p>
+                    <p>The background video on the front page was generated from field photos. </p>
+                    <p>The favicon image was acquired from <a>https://pngtree.com/freepng/green-flame_3478328.html.</a></p>
+                    <p>This story map uses geospatial data from mapbox, Google Earth Engine, ESRI Map, Open Street Maps
+                        and Data BC.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- main javascript -->
+<script type="text/javascript">
+
+
+    // Create Legend Contents in html format
+    var beetle_legend = '<i style="background: orange; opacity: 0.5"></i><p><b>Beetle-Outbreak</b></p>';
+    var forest_legend = '<i style="background: green; opacity: 0.5"></i><p><b>Forest</b></p>';
+
+
+    var layers = {
+        ESRI: {layer: L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}')},
+        beetle: {
+            layer: L.geoJson.ajax('assets/2002mpb.geojson', {
+                color: 'orange',
+                weight: 2,
+                opacity: 0.3
+            }), legend: beetle_legend
+        },
+
+        VIR: {
+            layer: L.tileLayer('assets/tilesvir/{z}/{x}/{y}.png')
+
+        },
+
+        GEE: {
+            layer: L.tileLayer('http://earthengine.google.org/static/hansen_2013/tree_alpha/{z}/{x}/{y}.png'),
+            legend: forest_legend
+        },
+
+        mpb: {
+            layer: L.tileLayer('assets/tiles2002mpb/{z}/{x}/{y}.png')
+        },
+        burn: {
+            layer: L.tileLayer('assets/tilesburn/{z}/{x}/{y}.png')
+
+        },
+        cartodb_light: {layer: L.tileLayer('http://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png')}
+    };
+
+    var scenes = {
+        overview: {lat: 53.248971, lng: -125.644940, zoom: 7, name: 'Cover Page', layers: []},
+        lodgepole: {lat: 53.267859, lng: -126.140204,  zoom: 13, name: 'Lodgepole Pine Forests', layers: [layers.VIR]},
+        outbreak: {lat: 53.269461, lng: -125.863468, zoom: 10, name: 'Beetle Outbreak', layers: [layers.GEE,layers.beetle, ]},
+        wildfire: {lat: 53.267859, lng: -126.140204, zoom: 12, name: 'Wildfire', layers: [layers.burn]},
+        recovery: {lat: 53.248971, lng: -125.644940, zoom: 8, name: 'Forest Regeneration', layers: [layers.ESRI]},
+        end: {lat: 53.248971, lng: -125.644940, zoom: 7, name: 'The End', layers: [layers.ESRI]}
+    };
+
+    $('#storymap').storymap({
+        scenes: scenes,
+        baselayer: layers.cartodb_light,
+        legend: true, // if you do not want a legend feature, you can simply not define the createLegend function.
+        credits: "",
+        loader: true,
+        scalebar: false,
+        flyo: true,
+        navwidget: true,
+
+        createMap: function () {
+            // create a map in the "map" div, set the view to a given place and zoom
+            var map = L.map($(".storymap-map")[0], {
+                zoomControl: false, scrollWheelZoom: false, fadeAnimation: true,
+                zoomAnimation: true
+            }).setView([53, -125.5], 7);
+
+            return map;
+        }
+    });
+</script>
+</body>
+</html>
