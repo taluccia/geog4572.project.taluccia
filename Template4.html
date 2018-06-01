@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+
+    <title>Dead forest burning</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--meta data for sharing links on Facebook-->
+    <meta property="og:title" content="Dead forests burning"/>
+    <!--<meta property="og:url" content=""/>-->
+    <meta property="og:description" content="Practicing generating a story map."/>
+    <meta property="og:image" content="img/social.png"/>
+
+    <!--add required stylesheets-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <!--leaflet css-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css">
+
+    <!--add favicon for the web page-->
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+
+
+    <!--Fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+
+
+    <link rel="stylesheet" type="text/css" href="css/storymap.2.4.css">
+    <!--add required libraries-->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.js"></script>
+    <!--jquery-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+
+    <!--boostrap-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <!--leaflet.ajax for asynchronously adding geojson data-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.min.js"></script>
+
+    <!--story map plugin-->
+    <script src="js/storymap.2.4.js"></script>
+
+    <style>
+        html, body, #map { width: 100%; height: 100%; margin: 0; background: #fff; }
+
+
+        .info-panel {
+            line-height: 16px;
+            width: 180px;
+            position: absolute;
+            z-index: 1000;
+            left: 10px;
+            bottom: 10px;
+            color: #070707;
+            padding: 6px 8px;
+            background: rgba(243, 243, 243, 0.73);
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            border-radius: 5px;
+        }
+
+
+        .info-panel i {
+            width: 16px;
+            height: 14px;
+            line-height: 18px;
+            float: left;
+            margin-top: 2px;
+            margin-right: 8px;
+            opacity: 0.7;
+        }
+
+        .info-panel p {
+            font-size: 12px;
+            line-height: 16px;
+            margin: 0;
+        }
+    </style>
+    <!--add required stylesheets-->
+    <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+
+</head>
+<body>
+
+<!--add a Bootstrap navbar-->
+<div class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+    <!--<div class="container-fluid">-->
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <a class="navbar-brand" href="#">
+        <!--convert the style value to a class and then add the class to the css file.-->
+        <img src="img/favicon.ico"  width="80%" class="d-inline-block align-top">
+    </a>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse">
+        <!--Create class ml-auto for the navbar items you want on the right.-->
+        <ul class="navbar-nav ml-auto" >
+            <!--a simple top bar link-->
+            <li class="nav-item">
+                <a class="nav-link" href="#">Overview</a>
+            </li>
+            <!--a top bar link which opens the url in a new page-->
+            <li class="nav-item">
+                <a class="nav-link" href="#">Lodgepole Pine</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Beetle Outbreak</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Wildfire</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Recovery</a>
+            </li>
+            <!--a drop-down menu-->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" >Share To...</a>
+                <div class="dropdown-menu" >
+                    <!--use font awesome icons-->
+                    <a class="dropdown-item" href="#"> <i class="fa fa-facebook-square"></i> Facebook</a>
+                    <a class="dropdown-item" href="#"> <i class="fa fa-twitter-square"></i> Twitter</a>
+                    <a class="dropdown-item" href="#"> <i class="fa fa-link"></i> Short Url </a>
+                </div>
+            </li>
+
+            <!--use icons in the top bar menu-->
+            <li>
+                <a class="nav-link" href="#"> <i class="fa fa-github fa-lg"></i>&nbsp;&nbsp;<span>Source Codes</span></a>
+            </li>
+            <!--an about page which open the url in a new page-->
+            <li>
+                <a class= "nav-link" href="template3.html" target="_self">About</a>
+            </li>
+        </ul>
+        <nav class="navbar navbar-dark bg-dark">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </nav>
+    </div>
+</div>
+<!--map container-->
+<div id="map" class="map"></div>
+<script type="text/javascript">
+    var map = L.map("map", {zoomControl: false}).setView([53.248971, -125.644940], 6); // deactivate the zoomControl
+    // construct a base map in light color.md.
+    L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}@2x.png').addTo(map);
+</script>
+
+<section data-scene="wildfire">
+    <h2>Wildfire</h2>
+    <h5>Then wildfire came along and burned parts of the landscape of dead lodgepole pine. This released the seeds being held.</h5>
+    <p> Wildfire occurs on the landscape when the conditions are beneficial for ignition and spread.
+        These conditions often occur mid to late summer during drier, windier periods. </p>
+    <p>Wildfire is a key disturbance mechanism in these forests that leads to rejuvenation, succession, and
+        increased biodiversity. It creates
+        an influx of nutrients and facilitates seed release for grasses, herbaceous plants, shrubs, and
+        lodgepole pine. </p>
+    <p>This burn severity map shows a post fire mosaic for a fire that burned 2013. Large areas of high
+        severity fire in red cover large portions of the mosaic.</p>
+
+    <!--map container-->
+    <div id="map" class="map"></div>
+    <!--info panel-->
+    <div class="info-panel">
+        <h4> Burn Severity </h4>
+
+        <!-- legend patch items -->
+        <i style="background: #1A9641;"></i><p>Unburned</p><br/>
+        <i style="background: #FFFF33;"></i><p>Light Surface Fire</p><br/>
+        <i style="background: #FFA500;"></i><p>Severe Surface Fire</p><br/>
+        <i style="background: #D7191C;"></i><p>Severe Crown Fire</p><br/>
+
+        <p> Burn severity categories are based on the Landscape Assessment (Key and Benson 2006).  </p>
+
+
+    </div>
+
+</section>
+
+
+
+
+<!-- main javascript -->
+<script type="text/javascript">
+
+
+    // Create Legend Contents in html format
+    var beetle_legend = '<i style="background: orange; opacity: 0.5"></i><p><b>Beetle-Outbreak</b></p>';
+    //var forest_legend = '<i style="background: green; opacity: 0.5"></i><p><b>Counties</b></p>';
+
+
+    var layers = {
+        ESRI: {layer: L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}')},
+        beetle: {
+            layer: L.geoJson.ajax('assets/2002mpb.geojson', {
+                color: 'orange',
+                weight: 2,
+                opacity: 0.3
+            }), legend: beetle_legend
+        },
+        VIR: {
+            layer: L.tileLayer('assets/tilesvir/{z}/{x}/{y}.png')
+
+        },
+        mpb: {
+            layer: L.tileLayer('assets/tiles2002mpb/{z}/{x}/{y}.png')
+        },
+        burn: {
+            layer: L.tileLayer('assets/tilesburn/{z}/{x}/{y}.png')
+        },
+        cartodb_light: {layer: L.tileLayer('http://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png')}
+    };
+
+    var scenes = {
+        overview: {lat: 53.248971, lng: -125.644940, zoom: 7, name: 'Cover Page', layers: []},
+        lodgepole: {lat: 53.267859, lng: -126.140204,  zoom: 13, name: 'Lodgepole Pine Forests', layers: [layers.VIR]},
+        outbreak: {lat: 53.269461, lng: -125.863468, zoom: 10, name: 'Beetle Outbreak', layers: [layers.beetle]},
+        fuels: {lat: 53.269461, lng: -125.863468, zoom: 9, name: 'Beetle Outbreak', layers: [layers.beetle]},
+        wildfire: {lat: 53.267859, lng: -126.140204, zoom: 12, name: 'Wildfire', layers: [layers.burn]},
+        regeneration: {lat: 53.248971, lng: -125.644940, zoom: 8, name: 'Forest Regeneration', layers: [layers.ESRI]},
+        end: {lat: 53.248971, lng: -125.644940, zoom: 7, name: 'The End', layers: [layers.ESRI]}
+    };
+
+    $('#storymap').storymap({
+        scenes: scenes,
+        baselayer: layers.cartodb_light,
+        legend: true, // if you do not want a legend feature, you can simply not define the createLegend function.
+        credits: "",
+        loader: true,
+        scalebar: false,
+        flyo: true,
+        navwidget: true,
+
+        createMap: function () {
+            // create a map in the "map" div, set the view to a given place and zoom
+            var map = L.map($(".storymap-map")[0], {
+                zoomControl: false, scrollWheelZoom: false, fadeAnimation: true,
+                zoomAnimation: true
+            }).setView([53, -125.5], 7);
+
+            return map;
+        }
+    });
+</script>
+
+</body>
+</html>
