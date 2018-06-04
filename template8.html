@@ -140,7 +140,7 @@
 <div id="storymap" class="container-fluid">
     <div class="row">
         <div class="col-sm-6 col-md-4 storymap-story">
-            <section data-scene="overview" data-background="assets/Dead_Forests_Burning.mp4">
+            <section data-scene="overview" data-background="assets/video_v2.mp4">
                 <div class="fullscreen text-center">
 
                 </div>
@@ -239,7 +239,22 @@
                     serotinous cones that retain seeds past maturity awaiting an environmental cue, in this case heat
                     from fire, which melts the resinous bond and releases the seeds for germination. Fire also clears
                     out the overstory for this sun loving species allowing them to be successful.</p>
-            </section>
+
+                <br>
+                <hr>
+                <div id="map" class="map"></div>
+                <!--info panel-->
+                <div class="info-panel">
+                    <h4> Vegetative Recovery Rate </h4>
+
+                    <!-- legend patch items -->
+                    <i style="background: #a6611a;"></i><p>Unchanged</p><br/>
+                    <i style="background: #e7d3a5;"></i><p>Low recovery Rate</p><br/>
+                    <i style="background: #a7dbd3;"></i><p>Moderate Recovery Rate</p><br/>
+                    <i style="background: #018571;"></i><p>High Recovery Rate</p><br/>
+
+                </div>
+           </section>
 
 
 
@@ -345,15 +360,19 @@
             layer: L.tileLayer('assets/tilesburn/{z}/{x}/{y}.png')
 
         },
+        recovery: {
+            layer: L.tileLayer('assets/tilesrecovery/{z}/{x}/{y}.png')
+
+        },
         cartodb_light: {layer: L.tileLayer('http://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png')}
     };
 
     var scenes = {
         overview: {lat: 53.248971, lng: -125.644940, zoom: 7, name: 'Cover Page', layers: []},
-        scene1: {lat: 53.267859, lng: -126.140204,  zoom: 13, name: 'Lodgepole Pine Forests', layers: [layers.VIR]},
+        scene1: {lat: 53.267859, lng: -126.140204,  zoom: 10, name: 'Lodgepole Pine Forests', layers: [layers.GEE, layers.VIR]},
         scene2: {lat: 53.269461, lng: -125.863468, zoom: 10, name: 'Beetle Outbreak', layers: [layers.GEE,layers.beetle, ]},
         scene3: {lat: 53.271870, lng: -125.782894, zoom: 10, name: 'Wildfire', layers: [layers.ESRI, layers.burn]},
-        scene4: {lat: 53.248971, lng: -125.644940, zoom: 8, name: 'Forest Regeneration', layers: [layers.ESRI]},
+        scene4: {lat: 53.271870, lng: -125.782894, zoom: 10, name: 'Forest Regeneration', layers: [layers.ESRI, layers.recovery]},
         end: {lat: 53.248971, lng: -125.644940, zoom: 7, name: 'The End', layers: [layers.ESRI]}
     };
 
