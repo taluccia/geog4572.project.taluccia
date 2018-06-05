@@ -83,6 +83,10 @@
     <!--story map plugin-->
     <script src="js/storymap.2.4.js"></script>
 
+    <!-- mini globle map -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.19/topojson.min.js"></script>
+    <script src="js/globeminimap.js"></script>
 
 
 </head>
@@ -391,7 +395,20 @@
             var map = L.map($(".storymap-map")[0], {
                 zoomControl: false, scrollWheelZoom: false, fadeAnimation: true,
                 zoomAnimation: true
-            }).setView([53, -125.5], 7);
+            }).setView([53, -125.5], 5);
+
+            // create a mini globe as the overview map control.
+            var miniMap = new L.Control.GlobeMiniMap({
+                marker:'orangered',
+                position: 'bottomright'
+            }).addTo(map);
+
+            //* Add a button of zoom IN and OUT
+            new L.Control.Zoom({ position: 'bottomright'}).addTo(map);
+
+            // hidden the credits, but show in the about page.
+            $(".leaflet-control-attribution").css("display", "none");
+
 
             return map;
         }
