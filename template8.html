@@ -151,7 +151,33 @@
             </section>
 
             <section data-scene="scene1">
-                <h2>Overview: Lodgpole Pine Forests</h2>
+                <h2>Sub-boreal Forests</h2>
+
+                <p>Sub-boreal forests cover vast areas in central interior British Columbia. Forests provide vital services across the region.
+                    The forests provide economic value in terms of timber harvest. They provide ecosystems services such as carbon sequestration and watershed management.
+                    Forests provide critical wildlife habitat for grizzly bears, caribu, wolverines and various bird species
+                </p>
+
+                <p>Historically, forest life cycles are influenced by disturbance regimes of wildfire and beetle outbreaks.
+                    wildfire return is typically 100-150 year intervals. Wildfire results in tree mortality and forest initiation.
+                    It diversifies the landscape by creating early successional habitat. Beetle outbreaks kill off mature canopy trees and release understory species.  </p>
+                <br>
+                <hr>
+                <div id="map" class="map"></div>
+                <!--info panel-->
+                <div class="info-panel">
+                  
+
+                    <!-- legend patch items -->
+                    <i style="background: green;"></i><p>Forests</p><br/>
+                    <p> Forest layer from Hansen 2013.</p>
+
+
+                </div>
+            </section>
+
+            <section data-scene="scene2">
+                <h2>Lodgpole Pine Forests</h2>
                 <h5>Once their were many mature lodgepole pine trees in the forests. </h5>
                 <p>Forest across central interior British Columbia are dominated by Lodgepole pine. Forests
                     are an integral part of the landscape and provide wildlife habitat, ecosystem services such as
@@ -169,7 +195,7 @@
                     is a fire resilient species with a seedbank that it retains and releases after fire.  </p>
             </section>
 
-            <section data-scene="scene2">
+            <section data-scene="scene3">
                 <h2>Beetle Outbreak</h2>
                 <h5>The populations of beetles that lived in the forest grew because they are able to survive the warmer
                     winters and an abundance lodgepole pines trees for them to host on. They attacked more lodgepole pine
@@ -192,7 +218,7 @@
 
 
 
-            <section data-scene="scene3">
+            <section data-scene="scene4">
                 <h2>Wildfire</h2>
                 <h5>Then wildfire came along and burned parts of the landscape of dead lodgepole pine. This released the seeds being held.</h5>
                 <p> Wildfire occurs on the landscape when the conditions are beneficial for ignition and spread.
@@ -224,7 +250,7 @@
 
 
 
-            <section data-scene="scene4">
+            <section data-scene="scene5">
                 <h2>Forest Regeneration</h2>
                 <h5>In many areas, lodgepole pine came back, but in some cases the combination of the dead trees from the
                     beetle attack and fire killed the seeds and lodgepole did not return. </h5>
@@ -313,13 +339,13 @@
                         storymap plugin for leaflet at <a>http://atlefren.github.io/storymap/</a>, and its functionality
                         relies on both leaflet and Boostrap.</p>
                     <p><b>storymap.js</b> | Released Date: 02/20/2017 | Version: 2.1 | MIT License </p>
-                    <p><b>Author: Anna Talucci</b> | College of Forestry | Oregon State University
+                    <p><b>Author: Michael Cook & Anna Talucci</b> | Oregon State University
                     </p>
-                    <p>The context about forest and disturbance history is acquired from previous research (future link to citations).</p>
+                    <p>The context about forest and disturbance history is acquired from previous research.</p>
                     <p>The background video on the front page was generated from field photos. </p>
                     <p>The favicon image was acquired from <a>https://pngtree.com/freepng/green-flame_3478328.html.</a></p>
                     <p>This story map uses geospatial data from mapbox, Google Earth Engine, ESRI Map, Open Street Maps
-                        and Data BC.</p>
+                        Data BC, and Landsat from the USGS. Remote sensing processing was performed in Google Earth Engine. </p>
                 </div>
             </div>
         </div>
@@ -334,7 +360,7 @@
 
     // Create Legend Contents in html format
     var beetle_legend = '<i style="background: orange; opacity: 0.5"></i><p><b>Beetle-Outbreak</b></p>';
-    var forest_legend = '<i style="background: green; opacity: 0.5"></i><p><b>Forest</b></p>';
+
 
 
     var layers = {
@@ -353,8 +379,8 @@
         },
 
         GEE: {
-            layer: L.tileLayer('http://earthengine.google.org/static/hansen_2013/tree_alpha/{z}/{x}/{y}.png'),
-            legend: forest_legend
+            layer: L.tileLayer('http://earthengine.google.org/static/hansen_2013/tree_alpha/{z}/{x}/{y}.png')
+
         },
 
         mpb: {
@@ -373,10 +399,11 @@
 
     var scenes = {
         overview: {lat: 53.248971, lng: -125.644940, zoom: 7, name: 'Cover Page', layers: []},
-        scene1: {lat: 53.267859, lng: -126.140204,  zoom: 10, name: 'Lodgepole Pine Forests', layers: [layers.GEE, layers.VIR]},
-        scene2: {lat: 53.269461, lng: -125.863468, zoom: 10, name: 'Beetle Outbreak', layers: [layers.GEE,layers.beetle, ]},
-        scene3: {lat: 53.271870, lng: -125.782894, zoom: 10, name: 'Wildfire', layers: [layers.ESRI, layers.burn]},
-        scene4: {lat: 53.271870, lng: -125.782894, zoom: 10, name: 'Forest Regeneration', layers: [layers.ESRI, layers.recovery]},
+        scene1: {lat: 53.267859, lng: -126.140204,  zoom: 7, name: 'Sub-Boreal Forests', layers: [layers.GEE]},
+        scene2: {lat: 53.267859, lng: -126.140204,  zoom: 10, name: 'Lodgepole Pine Forests', layers: [layers.GEE, layers.VIR]},
+        scene3: {lat: 53.269461, lng: -125.863468, zoom: 10, name: 'Beetle Outbreak', layers: [layers.GEE,layers.beetle, ]},
+        scene4: {lat: 53.271870, lng: -125.782894, zoom: 10, name: 'Wildfire', layers: [layers.ESRI, layers.burn]},
+        scene5: {lat: 53.271870, lng: -125.782894, zoom: 10, name: 'Forest Regeneration', layers: [layers.ESRI, layers.recovery]},
         end: {lat: 53.248971, lng: -125.644940, zoom: 7, name: 'The End', layers: [layers.ESRI]}
     };
 
@@ -395,7 +422,7 @@
             var map = L.map($(".storymap-map")[0], {
                 zoomControl: false, scrollWheelZoom: false, fadeAnimation: true,
                 zoomAnimation: true
-            }).setView([53, -125.5], 5);
+            }).setView([53, -125.5], 7);
 
             // create a mini globe as the overview map control.
             var miniMap = new L.Control.GlobeMiniMap({
