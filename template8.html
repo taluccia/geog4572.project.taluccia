@@ -31,6 +31,17 @@
     <link rel="stylesheet" type="text/css" href="css/storymap.2.4.css">
 
     <style>
+        div.fixed {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            width: 300px;
+            border: 3px solid #73AD21;
+        }
+    </style>
+
+
+    <style>
         html, body, #map { width: 100%; height: 100%; margin: 0; background: #fff; }
 
 
@@ -93,14 +104,15 @@
 <body>
 
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">n
+    <div class="container-fluid" >
     <!--<div class="container-fluid">-->
     <!-- Brand and toggle get grouped for better mobile display -->
-    <a class="navbar-brand" href="#">
+ <!--   <a class="navbar-brand" href="#">-->
         <!--convert the style value to a class and then add the class to the css file.-->
-        <img src="img/favicon.ico"  width="100%" class="d-inline-block align-top">
-    </a>
+       <!-- <img src="img/favicon.ico"  width="100%" class="d-inline-block align-top">-->
+   <!-- </a>-->
     <div class="navbar-header">
         <a class="navbar-brand" href="#">Dead Forests Burning</a>
     </div>
@@ -110,32 +122,25 @@
         <ul class="navbar-nav ml-auto" >
             <!--a simple top bar link-->
             <li class="nav-item">
-                <a class="nav-link" href="#">Overview</a>
+                <a class="nav-link" href="javascript:window.scrollBy(0, $('section[data-scene=scene1]').offset().top  - $(window).scrollTop() - $('.navbar').height()  - 10);">Overview</a>
             </li>
-            <!--a top bar link which opens the url in a new page-->
+           <!--a top bar link which opens the url in a new page-->
             <li class="nav-item">
-                <a class="nav-link" href="#">Beetle Outbreak</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Wildfire</a>
+                <a class="nav-link" href="javascript:window.scrollBy(0, $('section[data-scene=scene2]').offset().top  - $(window).scrollTop() - $('.navbar').height()  - 10);">Pine</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Recovery</a>
+                <a class="nav-link" href="javascript:window.scrollBy(0, $('section[data-scene=scene3]').offset().top  - $(window).scrollTop() - $('.navbar').height()  - 10);">Outbreak</a>
             </li>
-            <li>
-                <a class="fab fa-facebook-square btn" href="https://facebook.com/sharer.php?u=https://taluccia.github.io/geog4572.lab5.taluccia/" target="_blank"></a>
+            <li class="nav-item">
+                <<a class="nav-link" href="javascript:window.scrollBy(0, $('section[data-scene=scene4]').offset().top  - $(window).scrollTop() - $('.navbar').height()  - 10);">Wildfire</a>
             </li>
-            <li>
-                <a class="fa fa-github-square social2"  href="https://github.com/taluccia/geog4572.lab5.taluccia" style="top:40px"
-                   target="_blank"></a>
-            </li>
-            <li>
-                <i class="fas fa-info-circle btn" style="top:60px" data-toggle="modal" data-target="#info-modal"></i>
+            <li class="nav-item">
+                <<a class="nav-link" href="javascript:window.scrollBy(0, $('section[data-scene=scene5]').offset().top  - $(window).scrollTop() - $('.navbar').height()  - 10);">Recovery</a>
             </li>
         </ul>
     </div>
+    </div>
 </nav>
-
 
 
 
@@ -166,7 +171,7 @@
                 <div id="map" class="map"></div>
                 <!--info panel-->
                 <div class="info-panel">
-                  
+
 
                     <!-- legend patch items -->
                     <i style="background: green;"></i><p>Forests</p><br/>
@@ -178,64 +183,61 @@
 
             <section data-scene="scene2">
                 <h2>Lodgpole Pine Forests</h2>
-                <h5>Once their were many mature lodgepole pine trees in the forests. </h5>
-                <p>Forest across central interior British Columbia are dominated by Lodgepole pine. Forests
-                    are an integral part of the landscape and provide wildlife habitat, ecosystem services such as
-                    carbon storage, economic value in the form of timber harvest and recreation, and intrinsic value.
-                </p>
-                <p> Forest structure and life cycles are shaped by broad scale disturbances, most commonly mountain pine
-                    beetle outbreaks and wildfire. While lodgepole pine forests are accustom to large scale disturbance
-                    events from mountain pine beetle outbreaks and wildfire, recent events have been unprecedented in
-                    magnitude and extent, which have created conditions in which these two disturbances overlap in time
-                    and space.  </p>
+                <p>Lodgepole pine are dominant species in the forests of the central interior. </p>
+                <div id="map" class="map"></div>
+                <!--info panel-->
+                <div class="info-panel">
+                    <h5> Burn Severity </h5>
+                    <!-- legend patch items -->
+                    <i style="background: #1A9641;"></i><p>Unburned</p><br/>
+                    <i style="background: #FFFF33;"></i><p>Light Surface Fire</p><br/>
+                    <i style="background: #FFA500;"></i><p>Severe Surface Fire</p><br/>
+                    <i style="background: #D7191C;"></i><p>Severe Crown Fire</p><br/>
+                <hr>
+                <figure>
+                    <img src="img/lowrecovery.JPG" alt="Lodgepole pine recovery" width="304" height="228">
+                    <figcaption>Low Recovery Rate.</figcaption>
+                </figure>
 
-                <p>Historically, beetle outbreaks have occur multiple times throughout the last century, while
-                    wildfire return is typically 100-150 year intervals for the region. Beetle outbreak and wildfire
-                    are integral to shaping forest structure, composition, and function. Lodgepole pine
-                    is a fire resilient species with a seedbank that it retains and releases after fire.  </p>
+
+
+
             </section>
 
             <section data-scene="scene3">
                 <h2>Beetle Outbreak</h2>
-                <h5>The populations of beetles that lived in the forest grew because they are able to survive the warmer
-                    winters and an abundance lodgepole pines trees for them to host on. They attacked more lodgepole pine
-                    trees then ever before, which killed much of the forest. </h5>
                 <p>Mountain pine beetles are a natural part of forest ecosystems in western North America. Lodgepole
                     pine trees are the primary host for mountain pine beetles. Warmer winters and and abundance of
                     mature lodgepole pine trees have created ideal conditions for the eruption in beetle populations
                     that have resulted in millions of hectares of tree mortality. Much of the tree mortality has been
                     concentrated in central interior British Columbia.  </p>
-                <p>Female beetles find a suitable host tree and release a pheromone calling in other female beetles.
-                    They attack and overwhelm the tree. Under endemic conditions the tree is able to defend itself
-                    against the beetles, but during epidemics the tree's defense mechanisms become overwhelmed. When the
-                    tree becomes overwhelmed by beetles it is unable to acquire the water and nutrients it needs to
-                    survive leading to its death. </p>
-                <p>Dead trees become snags and transition through post-mortem decay phases. During the green
-                    attack phase, trees retain their green needles, but their moisture content declines over the first
-                    year. The red phase follows and is characterized by red needles in the canopy, which last 1-3 years.
-                    Finally the tree transitions to the gray phase once the red needles are dropped.</p>
+                <hr>
+                <div id="map" class="map"></div>
+                <!--info panel-->
+                <div class="info-panel">
+
+
+                    <!-- legend patch items -->
+                    <i style="background: green;"></i><p>Outbreak Severity</p><br/>
+                </div>
+
+
             </section>
 
 
 
             <section data-scene="scene4">
                 <h2>Wildfire</h2>
-                <h5>Then wildfire came along and burned parts of the landscape of dead lodgepole pine. This released the seeds being held.</h5>
-                <p> Wildfire occurs on the landscape when the conditions are beneficial for ignition and spread.
-                    These conditions often occur mid to late summer during drier, windier periods. </p>
-                <p>Wildfire is a key disturbance mechanism in these forests that leads to rejuvenation, succession, and
-                    increased biodiversity. It creates
-                    an influx of nutrients and facilitates seed release for grasses, herbaceous plants, shrubs, and
-                    lodgepole pine. </p>
-                <p>This burn severity map shows a post fire mosaic for a fire that burned 2013. Large areas of high
-                    severity fire in red cover large portions of the mosaic.</p>
-                <br>
+                <p>Wildfires initiate new growth for lodgepole pine forests. These ecosystems are often reliant on
+                    wildfire to release fire cue seeds like lodgepole pine. Without wildfire, no growth is limited.</p>
+                <p> These landscape tend to be characterized by stand replacing fire, but even when much of the forest
+                    large patches of moderate to high severity fire still occur. This burn severity map shows the post-fire
+                    mosaic for three wildfire events. </p>
                 <hr>
                 <div id="map" class="map"></div>
                 <!--info panel-->
                 <div class="info-panel">
-                    <h4> Burn Severity </h4>
-
+                    <h5> Burn Severity </h5>
                     <!-- legend patch items -->
                     <i style="background: #1A9641;"></i><p>Unburned</p><br/>
                     <i style="background: #FFFF33;"></i><p>Light Surface Fire</p><br/>
@@ -251,44 +253,38 @@
 
 
             <section data-scene="scene5">
-                <h2>Forest Regeneration</h2>
-                <h5>In many areas, lodgepole pine came back, but in some cases the combination of the dead trees from the
-                    beetle attack and fire killed the seeds and lodgepole did not return. </h5>
-                <p>Regeneration is critical to forest recovery. The extent and magnitude of both beetle outbreak and
-                    wildfire creates variability in seed availability and regeneration response for lodgepole pine.
-                    The variability creates a diverse mosaic across the landscape that includes everything from high
-                    density dog-hair stands of lodgepole pine to areas of little to no tree regeneration. Much of the
-                    high severity burned area is dominated by herbaceous flowering plants and shrubs. Am increase in
-                    plant species diversity draws in species that may not be associated with old growth lodgepole pine
-                    forests. </p>
-                <p>Postfire early successional habitat often attracts species like the black backed woodpecker that feeds
-                    on post fire insect activity. Hummingbirds enjoy the abundance of fireweed and other flowing plants.
-                    For some species, like Geranium bicknellii, postfire facilitates their germination after a century
-                    of dormancy. </p>
-                <p> Wildfire is a key mechanism for lodgepole pine regeneration. Lodgepole pine produce
-                    serotinous cones that retain seeds past maturity awaiting an environmental cue, in this case heat
-                    from fire, which melts the resinous bond and releases the seeds for germination. Fire also clears
-                    out the overstory for this sun loving species allowing them to be successful.</p>
-
-                <br>
-                <hr>
+                <h2>Recovery</h2>
+                <p>Regeneration is critical to forest recovery and rates of tree regeneration are variable. Postfire
+                    early successional habitat increases biodiversity. The influx of herbous plants - fireweed
+                    and Geranium bicknellii attract humming birds, while increased insect activity attracts black backed
+                    woodpeckers. Lodgepole pine needs fire to release seeds. Wildfire breaths new life into the landscape
+                    after extensive mortality from beetle outbreak  </p>
+               <hr>
                 <div id="map" class="map"></div>
                 <!--info panel-->
                 <div class="info-panel">
-                    <h4> Vegetative Recovery Rate </h4>
-
+                    <h5> Vegetative Recovery Rate </h5>
                     <!-- legend patch items -->
-                    <i style="background: #a6611a;"></i><p>Unchanged</p><br/>
-                    <i style="background: #e7d3a5;"></i><p>Low recovery Rate</p><br/>
-                    <i style="background: #a7dbd3;"></i><p>Moderate Recovery Rate</p><br/>
-                    <i style="background: #018571;"></i><p>High Recovery Rate</p><br/>
-
+                    <i style="background: #a6611a;"></i><p>Unchanged</p>
+                    <i style="background: #e7d3a5;"></i><p>Low recovery Rate</p>
+                    <i style="background: #a7dbd3;"></i><p>Moderate Recovery Rate</p>
+                    <i style="background: #018571;"></i><p>High Recovery Rate</p>
+                <hr>
+                    <figure>
+                        <img src="img/highrecovery.JPG" alt="Lodgepole pine recovery" width="304" height="228">
+                        <figcaption>High Recovery Rate.</figcaption>
+                    </figure>
+                    <hr>
+                    <figure>
+                        <img src="img/lowrecovery.JPG" alt="Lodgepole pine recovery" width="304" height="228">
+                        <figcaption>Low Recovery Rate.</figcaption>
+                    </figure>
                 </div>
            </section>
 
 
 
-            <section data-scene="end" data-background="assets/fieldphotos_video.mp4">
+            <section data-scene="end" data-background="img/IMG_0850.jpg">
                 <div class="fullscreen text-center">
                     <h1 class="display-4 d-flex justify-content-center">Thanks for watching!!!</h1>
                     <medium class="d-flex justify-content-center" style="color: rgba(255,255,255,0.95)">Big
@@ -305,23 +301,26 @@
         <div class="col-sm-6 col-md-8 storymap-map"></div>
     </div>
 
-    <!--<dl>-->
-    <!--<dt>-->
-    <!--&lt;!&ndash;facebook icon&ndash;&gt;-->
-    <!--<a class="fab fa-facebook-square btn"-->
-    <!--href="https://facebook.com/sharer.php?u=http://geoviz.ceoas.oregonstate.edu/storymap/examples/2.3/video.html"-->
-    <!--target="_blank"></a>-->
-    <!--</dt>-->
-    <!--<dt>-->
-    <!--&lt;!&ndash;github icon&ndash;&gt;-->
-    <!--<a class="fab fa-github btn" href="https://github.com/taluccia/geog4572.lab5.taluccia" style="top:40px"-->
-    <!--target="_blank"></a>-->
-    <!--</dt>-->
-    <!--<dt>-->
-    <!--&lt;!&ndash;info icon&ndash;&gt;-->
-    <!--<i class="fas fa-info-circle btn" style="top:60px" data-toggle="modal" data-target="#info-modal"></i>-->
-    <!--</dt>-->
-    <!--</dl>-->
+
+    <dl>
+        <dt>
+            <!--facebook icon-->
+            <a class="fab fa-facebook-square btn"
+               href="https://facebook.com/sharer.php?u=http://geoviz.ceoas.oregonstate.edu/storymap/examples/2.3/video.html"
+               target="_blank"></a>
+        </dt>
+        <dt>
+            <!--github icon-->
+            <a class="fab fa-github btn" href="https://github.com/taluccia/geog4572.lab5.taluccia" style="top:40px"
+               target="_blank"></a>
+        </dt>
+        <dt>
+            <!--info icon-->
+            <i class="fas fa-info-circle btn" style="top:60px" data-toggle="modal" data-target="#info-modal"></i>
+        </dt>
+    </dl>
+
+
 
     <!--the info page-->
     <div class="modal fade" id="info-modal" role="dialog">
@@ -359,12 +358,13 @@
 
 
     // Create Legend Contents in html format
-    var beetle_legend = '<i style="background: orange; opacity: 0.5"></i><p><b>Beetle-Outbreak</b></p>';
+    var beetle_legend = '<i style="background: orange;"></i><p><b>Beetle-Outbreak</b></p>';
 
 
 
     var layers = {
         ESRI: {layer: L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}')},
+
         beetle: {
             layer: L.geoJson.ajax('assets/2002mpb.geojson', {
                 color: 'orange',
