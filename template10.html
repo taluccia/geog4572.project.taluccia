@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Dead forest burning</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--meta data for sharing links on Facebook-->
+    <meta property="og:title" content="Dead forests burning"/>
+    <!--<meta property="og:url" content=""/>-->
+    <meta property="og:description" content="Practicing generating a story map."/>
+    <meta property="og:image" content="img/social.png"/>
+
+    <!--add required stylesheets-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!--leaflet css-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css">
+
+    <!--add favicon for the web page-->
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+
+    <!--Fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="css/storymap.2.4.css">
+
+
+
+
+    <style>
+        html, body, #map { width: 100%; height: 100%; margin: 0; background: #fff; }
+
+
+        /*.info-panel {*/
+        /*line-height: 16px;*/
+        /*width: 180px;*/
+        /*position: absolute;*/
+        /*z-index: 1000;*/
+        /*left: 10px;*/
+        /*bottom: 10px;*/
+        /*color: #070707;*/
+        /*padding: 6px 8px;*/
+        /*background: rgba(243, 243, 243, 0.73);*/
+        /*box-shadow: 0 0 15px rgba(0,0,0,0.2);*/
+        /*border-radius: 5px;*/
+        /*}*/
+
+
+        .info-panel i {
+            width: 16px;
+            height: 14px;
+            line-height: 18px;
+            float: left;
+            margin-top: 2px;
+            margin-right: 8px;
+            opacity: 0.7;
+        }
+
+        .info-panel p {
+            font-size: 12px;
+            line-height: 16px;
+            margin: 0;
+        }
+    </style>
+
+
+
+    <!--Scripts-->
+    <!--add required libraries-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.js"></script>
+    <!--jquery-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <!--boostrap-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <!--leaflet.ajax for asynchronously adding geojson data-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.min.js"></script>
+
+    <!--story map plugin-->
+    <script src="js/storymap.2.4.js"></script>
+
+    <!-- mini globle map -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.19/topojson.min.js"></script>
+    <script src="js/globeminimap.js"></script>
+
+
+</head>
+<body>
+
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">n
+    <div class="container-fluid" >
+        <!--<div class="container-fluid">-->
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <!--   <a class="navbar-brand" href="#">-->
+        <!--convert the style value to a class and then add the class to the css file.-->
+        <!-- <img src="img/favicon.ico"  width="100%" class="d-inline-block align-top">-->
+        <!-- </a>-->
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Dead Forests Burning</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse">
+            <!--Create class ml-auto for the navbar items you want on the right.-->
+            <ul class="navbar-nav ml-auto" >
+                <!--a simple top bar link-->
+
+                <!--a top bar link which opens the url in a new page-->
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:window.scrollBy(0, $('section[data-scene=scene1]').offset().top  - $(window).scrollTop() - $('.navbar').height()  - 10);">Forests</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:window.scrollBy(0, $('section[data-scene=scene2]').offset().top  - $(window).scrollTop() - $('.navbar').height()  - 10);">Outbreak</a>
+                </li>
+                <li class="nav-item">
+                    <<a class="nav-link" href="javascript:window.scrollBy(0, $('section[data-scene=scene3]').offset().top  - $(window).scrollTop() - $('.navbar').height()  - 10);">Wildfire</a>
+                </li>
+                <li class="nav-item">
+                    <<a class="nav-link" href="javascript:window.scrollBy(0, $('section[data-scene=scene4]').offset().top  - $(window).scrollTop() - $('.navbar').height()  - 10);">Recovery</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+
+
+
+<div id="storymap" class="container-fluid">
+    <div class="row">
+        <div class="col-sm-6 col-md-4 storymap-story">
+            <section data-scene="overview" data-background="assets/video_v2.mp4">
+                <div class="fullscreen text-center">
+
+                </div>
+            </section>
+
+            <section data-scene="scene1">
+                <h2>Forests</h2>
+
+                <p>Sub-boreal forests cover vast areas in central interior British Columbia. Forests provide vital services across the region.
+                    The forests provide economic value in terms of timber harvest. They provide ecosystems services such as carbon sequestration and watershed management.
+                    Forests provide critical wildlife habitat for grizzly bears, caribou, wolverines and various bird species.  </p>
+
+                <p>Lodgepole pine are dominant species in the forests of the central interior. Historically, forest life cycles are influenced by disturbance regimes of wildfire and beetle outbreaks.
+                    wildfire return is typically 100-150 year intervals. Wildfire results in tree mortality and forest initiation.
+                    It diversifies the landscape by creating early successional habitat. Beetle outbreaks kill off mature canopy trees and release understory species.  </p>
+                <br>
+                <hr>
+                <div id="map" class="map"></div>
+                <!--info panel-->
+                <div class="info-panel">
+
+
+                    <!-- legend patch items -->
+                    <i style="background: green;"></i><p>Forests</p><br/>
+                    <p> Forest layer from Hansen 2013.</p>
+
+
+                </div>
+            </section>
+
+
+
+            <section data-scene="scene2">
+                <h2>Beetle Outbreak</h2>
+                <p>Mountain pine beetles are a natural part of forest ecosystems in western North America. Lodgepole
+                    pine trees are the primary host for mountain pine beetles. Warmer winters and and abundance of
+                    mature lodgepole pine trees have created ideal conditions for the eruption in beetle populations
+                    that have resulted in millions of hectares of tree mortality. Much of the tree mortality has been
+                    concentrated in central interior British Columbia.  </p>
+                <hr>
+                <div id="map" class="map"></div>
+                <!--info panel-->
+                <div class="info-panel">
+                    <h5>Legend</h5>
+                    <!-- legend patch items -->
+                    <i style="background: #ffffb2;"></i><p>Low Mortality</p><br/>
+                    <i style="background: #feb751;"></i><p>Moderate Mortality</p><br/>
+                    <i style="background: #f55629;"></i><p>High Mortality</p><br/>
+                    <i style="background: green;"></i><p>Forest</p><br/>
+
+                </div>
+
+            </section>
+
+
+
+            <section data-scene="scene3">
+                <h2>Wildfire</h2>
+                <p>Wildfires initiate new growth for lodgepole pine forests. These ecosystems are often reliant on
+                    wildfire to release fire cue seeds like lodgepole pine. Without wildfire, no growth is limited.</p>
+                <p> These landscape tend to be characterized by stand replacing fire, but even when much of the forest
+                    large patches of moderate to high severity fire still occur. This burn severity map shows the post-fire
+                    mosaic for three wildfire events. </p>
+                <hr>
+                <div id="map" class="map"></div>
+                <!--info panel-->
+                <div class="info-panel">
+                    <h5> Burn Severity </h5>
+                    <!-- legend patch items -->
+                    <i style="background: #1A9641;"></i><p>Unburned</p><br/>
+                    <i style="background: #FFFF33;"></i><p>Light Surface Fire</p><br/>
+                    <i style="background: #FFA500;"></i><p>Severe Surface Fire</p><br/>
+                    <i style="background: #D7191C;"></i><p>Severe Crown Fire</p><br/>
+
+                    <p> Burn severity categories are based on the Landscape Assessment (Key and Benson 2006).  </p>
+
+
+                </div>
+            </section>
+
+
+
+            <section data-scene="scene4">
+                <h2>Recovery</h2>
+                <p>Regeneration is critical to forest recovery and rates of tree regeneration are variable. Postfire
+                    early successional habitat increases biodiversity. The influx of herbous plants - fireweed
+                    and Geranium bicknellii attract humming birds, while increased insect activity attracts black backed
+                    woodpeckers. Lodgepole pine needs fire to release seeds. Wildfire breaths new life into the landscape
+                    after extensive mortality from beetle outbreak  </p>
+                <hr>
+                <div id="map" class="map"></div>
+                <!--info panel-->
+                <div class="info-panel">
+                    <h5> Vegetative Recovery Rate </h5>
+                    <!-- legend patch items -->
+                    <i style="background: #a6611a;"></i><p>Unchanged</p>
+                    <i style="background: #e7d3a5;"></i><p>Low recovery Rate</p>
+                    <i style="background: #a7dbd3;"></i><p>Moderate Recovery Rate</p>
+                    <i style="background: #018571;"></i><p>High Recovery Rate</p>
+                    <hr>
+                    <figure>
+                        <img src="img/highrecovery.JPG" alt="Lodgepole pine recovery" width="304" height="228">
+                        <figcaption>High Tree Regeneration</figcaption>
+                    </figure>
+                    <hr>
+                    <figure>
+                        <img src="img/lowrecovery.JPG" alt="Lodgepole pine recovery" width="304" height="228">
+                        <figcaption>Low Tree Regeneration</figcaption>
+                    </figure>
+                </div>
+            </section>
+
+
+
+            <section data-scene="end" data-background="img/IMG_0850.jpg">
+                <div class="fullscreen text-center">
+                    <h1 class="display-4 d-flex justify-content-center">Thanks for watching!!!</h1>
+                    <medium class="d-flex justify-content-center" style="color: rgba(255,255,255,0.95)">Big
+                        thanks to all those that helped with this project.
+                    </medium>
+                    <small class="d-flex justify-content-center" style="color: rgba(255,255,255,0.95)">This is a small
+                        portion of a dissertation that has been supported by many folks.
+                    </small>
+                </div>
+            </section>
+
+        </div>
+        <!--map div-->
+        <div class="col-sm-6 col-md-8 storymap-map"></div>
+    </div>
+
+
+    <dl>
+        <dt>
+            <!--facebook icon-->
+            <a class="fab fa-facebook-square btn"
+               href="https://facebook.com/sharer.php?u=http://geoviz.ceoas.oregonstate.edu/storymap/examples/2.3/video.html"
+               target="_blank"></a>
+        </dt>
+        <dt>
+            <!--github icon-->
+            <a class="fab fa-github btn" href="https://github.com/taluccia/geog4572.lab5.taluccia" style="top:40px"
+               target="_blank"></a>
+        </dt>
+        <dt>
+            <!--info icon-->
+            <i class="fas fa-info-circle btn" style="top:60px" data-toggle="modal" data-target="#info-modal"></i>
+        </dt>
+    </dl>
+
+
+
+    <!--the info page-->
+    <div class="modal fade" id="info-modal" role="dialog">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">About</h4>
+                </div>
+                <div class="modal-body">
+                    <p>This is a web map of lodgepole pine forest in transition. In central interior British Columbia,
+                        forests have been killed by mountain pine beetle outbreak and then burned during wildfire, which has raised
+                        concerns and questions about fire severity and forest recovery. This is a final project for a class:
+                        Geovisualization provided by Oregon State University. The story map library is derived from the
+                        storymap plugin for leaflet at <a>http://atlefren.github.io/storymap/</a>, and its functionality
+                        relies on both leaflet and Boostrap.</p>
+                    <p><b>storymap.js</b> | Released Date: 02/20/2017 | Version: 2.1 | MIT License </p>
+                    <p><b>Author: Michael Cook & Anna Talucci</b> | Oregon State University
+                    </p>
+                    <p>The context about forest and disturbance history is acquired from previous research.</p>
+                    <p>The background video on the front page was generated from field photos. </p>
+                    <p>The favicon image was acquired from <a>https://pngtree.com/freepng/green-flame_3478328.html.</a></p>
+                    <p>This story map uses geospatial data from mapbox, Google Earth Engine, ESRI Map, Open Street Maps
+                        Data BC, and Landsat from the USGS. Remote sensing processing was performed in Google Earth Engine. </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- main javascript -->
+<script type="text/javascript">
+
+
+    // Create Legend Contents in html format
+
+
+
+
+    var layers = {
+        ESRI: {layer: L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}')},
+
+        beetle: {
+            layer: L.tileLayer('assets/tilesoutbreak/{z}/{x}/{y}.png')
+        },
+
+
+
+        VIR: {
+            layer: L.tileLayer('assets/tile_vir/{z}/{x}/{y}.png')
+
+        },
+
+        GEE: {
+            layer: L.tileLayer('http://earthengine.google.org/static/hansen_2013/tree_alpha/{z}/{x}/{y}.png')
+
+        },
+
+        mpb: {
+            layer: L.tileLayer('assets/tiles2002mpb/{z}/{x}/{y}.png')
+        },
+        burn: {
+            layer: L.tileLayer('assets/tilesburn/{z}/{x}/{y}.png')
+
+        },
+        recovery: {
+            layer: L.tileLayer('assets/tilesrecovery/{z}/{x}/{y}.png')
+
+        },
+        cartodb_light: {layer: L.tileLayer('http://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png')}
+    };
+
+    var scenes = {
+        overview: {lat: 53.248971, lng: -125.644940, zoom: 7, name: 'Cover Page', layers: []},
+        scene1: {lat: 53.267859, lng: -126.140204,  zoom: 10, name: 'Lodgepole Pine Forests', layers: [layers.GEE, layers.VIR]},
+        scene2: {lat: 53.269461, lng: -125.863468, zoom: 10, name: 'Beetle Outbreak', layers: [layers.GEE,layers.beetle, ]},
+        scene3: {lat: 53.271870, lng: -125.782894, zoom: 10, name: 'Wildfire', layers: [layers.ESRI, layers.burn]},
+        scene4: {lat: 53.271870, lng: -125.782894, zoom: 10, name: 'Forest Regeneration', layers: [layers.ESRI, layers.recovery]},
+        end: {lat: 53.248971, lng: -125.644940, zoom: 7, name: 'The End', layers: [layers.ESRI]}
+    };
+
+    $('#storymap').storymap({
+        scenes: scenes,
+        baselayer: layers.cartodb_light,
+        legend: true, // if you do not want a legend feature, you can simply not define the createLegend function.
+        credits: "",
+        loader: true,
+        scalebar: false,
+        flyo: true,
+        navwidget: true,
+
+        createMap: function () {
+            // create a map in the "map" div, set the view to a given place and zoom
+            var map = L.map($(".storymap-map")[0], {
+                zoomControl: false, scrollWheelZoom: false, fadeAnimation: true,
+                zoomAnimation: true
+            }).setView([53, -125.5], 7);
+
+            // create a mini globe as the overview map control.
+            var miniMap = new L.Control.GlobeMiniMap({
+                marker:'orangered',
+                position: 'bottomright'
+            }).addTo(map);
+
+            //* Add a button of zoom IN and OUT
+            new L.Control.Zoom({ position: 'bottomright'}).addTo(map);
+
+            // hidden the credits, but show in the about page.
+            $(".leaflet-control-attribution").css("display", "none");
+
+
+            return map;
+        }
+    });
+</script>
+</body>
+</html>
